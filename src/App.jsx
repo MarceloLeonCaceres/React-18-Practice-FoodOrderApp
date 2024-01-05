@@ -1,17 +1,24 @@
-import AvailableMeals from "./components/AvailableMeals";
 import Header from "./components/Header";
+import Shop from "./components/Shop.jsx";
+
+import Meal from "./components/Meal.jsx";
+import { DUMMY_PRODUCTS } from "../src/assets/dummy-products.js";
+
+import OrderContextProvider from "./store/order-context.jsx";
 
 function App() {
+  console.log(DUMMY_PRODUCTS);
   return (
-    <>
-      <h1>You got this 💪</h1>
-      <p>Stuck? Not sure how to proceed?</p>
-      <p>Don't worry - we've all been there. Let's build it together!</p>
-      <main>
-        <Header />
-        <AvailableMeals />
-      </main>
-    </>
+    <OrderContextProvider>
+      <Header />
+      <Shop>
+        {DUMMY_PRODUCTS.map((meal) => (
+          <li key={meal.id}>
+            <Meal {...meal} />
+          </li>
+        ))}
+      </Shop>
+    </OrderContextProvider>
   );
 }
 
