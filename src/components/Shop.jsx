@@ -1,8 +1,8 @@
 export default function Shop({ children }) {
 
   return (
-    <section id="shop">
-      <h2>Delicious meals for Everyone</h2>
+    <section className="main-header">
+      <h1>Delicious meals for Everyone</h1>
       <ul id="meals">{children}</ul>
     </section>
   );

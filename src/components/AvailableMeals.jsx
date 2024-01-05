@@ -10,19 +10,19 @@ async function traeMenu() {
 }
 
 export default function AvailableMeals() {
-    const {
-        isFetching,
-        error,
-        fetchedData: availableMeals,
-    } = useFetch(traeMenu, []);
-    console.log(availableMeals);
+  const {
+    isFetching,
+    error,
+    fetchedData: availableMeals,
+  } = useFetch(traeMenu, []);
+  console.log(availableMeals);
   return (
-    <ul>
-    {availableMeals.map((meal) => {
-      <li key={meal.id}>
-        <Meal {...meal}/>
-      </li>
-    })}
+    <ul id="meals">
+      {availableMeals.map((meal) => (
+        <li key={meal.id}>
+          <Meal {...meal} />
+        </li>
+      ))}
     </ul>
   );
 }
