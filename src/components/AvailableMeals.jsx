@@ -1,4 +1,4 @@
-import Meals from "./Meals";
+import Meal from "./Meal.jsx";
 import { fetchAvailableMeals } from "../http.js";
 import { useFetch } from "../hooks/useFetch";
 
@@ -16,5 +16,13 @@ export default function AvailableMeals() {
         fetchedData: availableMeals,
     } = useFetch(traeMenu, []);
     console.log(availableMeals);
-  return <Meals title="Menu del dia" meals={availableMeals} />;
+  return (
+    <ul>
+    {availableMeals.map((meal) => {
+      <li key={meal.id}>
+        <Meal {...meal}/>
+      </li>
+    })}
+    </ul>
+  );
 }
