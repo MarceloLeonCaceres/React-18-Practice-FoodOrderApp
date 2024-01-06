@@ -2,6 +2,8 @@ import Meal from "./Meal.jsx";
 import { fetchAvailableMeals } from "../http.js";
 import { useFetch } from "../hooks/useFetch";
 
+import Error from "./Error.jsx";
+
 async function traeMenu() {
   const availableMeals = await fetchAvailableMeals();
   return new Promise((resolve) => {
@@ -15,14 +17,18 @@ export default function AvailableMeals() {
     error,
     fetchedData: availableMeals,
   } = useFetch(traeMenu, []);
-  console.log(availableMeals);
+  
+  if(error){
+    return <Error title={"An error ocurred!"} message={error.message}/>;
+  }
+
   return (
-    <ul id="meals">
+    <>
       {availableMeals.map((meal) => (
         <li key={meal.id}>
           <Meal {...meal} />
         </li>
       ))}
-    </ul>
+    </>
   );
 }
