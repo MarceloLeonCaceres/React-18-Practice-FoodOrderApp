@@ -1,27 +1,28 @@
-import { useEffect, useState } from "react";
 import MealItem from "./MealItem.jsx";
+import useHttp from "../hooks/useHttp.js";
+
+const requestConfig = {};
 
 export default function Meals() {
-  const [loadedMeals, setLoadesMeals] = useState([]);
+  const {
+    data: loadedMeals,
+    isLoading,
+    error,
+  } = useHttp("http://localhost:3000/meals", requestConfig, []);
 
-  useEffect(() => {
-    async function fetchMeals() {
-      const response = await fetch("http://localhost:3000/meals");
-      if (!response.ok) {
-        // ...
-      }
-      const meals = await response.json();
-      setLoadesMeals(meals);
-    }
+  if (isLoading) {
+    return <p>Fetching meals...</p>;
+  }
 
-    fetchMeals();
-  }, []);
+  // if(!loadedMeals ){
+  //   return <p>No meals found.</p>
+  // }
 
   return (
     <ul id="meals">
-      {loadedMeals.map((mealItem) => 
+      {loadedMeals.map((mealItem) => (
         <MealItem key={mealItem.id} meal={mealItem} />
-      )}
+      ))}
     </ul>
   );
 }
